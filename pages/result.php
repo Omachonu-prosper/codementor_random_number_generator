@@ -1,3 +1,20 @@
+<?php
+
+  // Wait for a post request to this route
+  if(isset($_POST['random_form_submit'])) {
+    $no_of_sides = $_POST['no_of_sides'];
+    $no_to_roll = $_POST['no_of_dice_to_roll'];
+    $dice_rolls = [];
+
+
+  }
+  else {
+    // Lead user back to homepage
+    header('location: /');
+  }
+
+?>
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -16,26 +33,26 @@
       <h1 class="display-4">Random Number Generator</h1>
 
       <div class="card p-3 mt-3">
-        <form action="pages/result.php" method="post">
-          <div class="form-group">
-            <label for="no_to_roll">Number of times to roll</label>
-            <input class="form-control" type="number" name="no_of_dice_to_roll" id="no_to_roll" placeholder="Number of times to roll" max="10" min="1" required>
-          </div>
-
-          <div class="form-group">
-            <label for="no_of_sides">Number sides</label>
-            <select name="no_of_sides" id="no_of_sides" class="custom-select">
-              <option value="4">Four sides (default)</option>
-              <option value="6">Six sides</option>
-              <option value="8">Eight sides</option>
-              <option value="10">Ten sides</option>
-              <option value="12">Twelve sides</option>
-              <option value="20">Twenty sides</option>
-            </select>
-          </div>
-
-          <button type="submit" name="random_form_submit" class="btn btn-primary">Submit</button>
-        </form>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Number rolled</th>
+              <th scope="col">Dice type</th>
+              <th scope="col">Total count</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php for($i = 0; $i < $no_to_roll; $i++) { ?>
+              <tr>
+                <td><?php echo rand(1, $no_of_sides); ?></td>
+                <td><?php echo $no_of_sides; ?></td>
+                <td><?php echo $i + 1; ?></td>
+              </tr>
+            <?php } ?>
+          </tbody>
+        </table>
+        
+        <a class="btn btn-primary" href="/">Roll again</a>
       </div>
     </div>
 
